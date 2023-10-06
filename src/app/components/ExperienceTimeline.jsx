@@ -99,83 +99,87 @@ const ExperienceTimeline = () => {
 
       <Timeline position="alternate">
         {items.map((item, index) => {
-          const controls = useAnimation();
-          const [ref, inView] = useInView({
-            triggerOnce: true,
-            threshold: 0,
-          });
-
-          useEffect(() => {
-            if (inView) {
-              controls.start({
-                opacity: 1,
-                y: 0,
-              });
-            } else {
-              controls.start({
-                opacity: 0,
-                y: 100,
-              });
-            }
-          }, [inView, controls]);
-
-          const isEven = index % 2 === 0;
-          const alignItemsStyle = isEven ? 'flex-start' : 'flex-end'; // Adjust alignment for even and odd items
-
-          return (
-            <TimelineItem key={index}>
-              <TimelineOppositeContent
-                sx={{ m: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: isEven ? 'flex-end' : 'flex-start' }}
-                align={isEven ? 'right' : 'left'}
-                variant="body"
-                color="white"
-              >
-                <motion.div
-                  ref={ref}
-                  initial={{ opacity: 0, y: 100 }}
-                  animate={controls}
-                  transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-                >
-                  <div style={{ width: '400px', height: '300px', borderRadius: '10px', overflow: 'hidden', marginBottom: '14px' }}>
-                    <img
-                      src={item.imageSrc}
-                      alt="Winner Image"
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  </div>
-                  <div>
-                    <Typography variant="h6" component="span" style={{ fontWeight: 'bold' }}>
-                      {item.title}
-                    </Typography>
-                    <Typography>{item.subtitle}</Typography>
-                    {item.date}
-                  </div>
-                </motion.div>
-              </TimelineOppositeContent>
-              <TimelineSeparator>
-                <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-                <TimelineDot color="primary">
-                  {index === 0 ? <DesignServicesIcon /> : index === 1 ? <AppSettingsAltIcon /> : index === 2 ? <IntegrationInstructionsIcon /> : index === 3 ? <VideocamIcon /> : index === 4 ? <EmojiEventsIcon /> : index === 5 ? <ThumbUpIcon /> : index === 6 ? <CoPresentIcon /> : index === 7 ? <WorkspacePremiumIcon /> : <AssessmentIcon />}
-                </TimelineDot>
-                <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
-              </TimelineSeparator>
-              <TimelineContent sx={{ py: '12px', px: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: alignItemsStyle }}>
-                <div style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 100 }}
-                    animate={controls}
-                    transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
-                  >
-                    <Typography align="justify">{item.content}</Typography>
-                  </motion.div>
-                </div>
-              </TimelineContent>
-            </TimelineItem>
-          );
+          return <TimelineItemComponent key={index} item={item} index={index} />;
         })}
       </Timeline>
     </section>
   );
 }
+
+const TimelineItemComponent = ({ item, index }) => {
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0,
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        opacity: 1,
+        y: 0,
+      });
+    } else {
+      controls.start({
+        opacity: 0,
+        y: 100,
+      });
+    }
+  }, [inView, controls]);
+
+  const isEven = index % 2 === 0;
+  const alignItemsStyle = isEven ? 'flex-start' : 'flex-end';
+
+  return (
+    <TimelineItem>
+      <TimelineOppositeContent
+        sx={{ m: 'auto 0', display: 'flex', flexDirection: 'column', alignItems: isEven ? 'flex-end' : 'flex-start' }}
+        align={isEven ? 'right' : 'left'}
+        variant="body"
+        color="white"
+      >
+        <motion.div
+          ref={ref}
+          initial={{ opacity: 0, y: 100 }}
+          animate={controls}
+          transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
+        >
+          <div style={{ width: '400px', height: '300px', borderRadius: '10px', overflow: 'hidden', marginBottom: '14px' }}>
+            <img
+              src={item.imageSrc}
+              alt="Winner Image"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </div>
+          <div>
+            <Typography variant="h6" component="span" style={{ fontWeight: 'bold' }}>
+              {item.title}
+            </Typography>
+            <Typography>{item.subtitle}</Typography>
+            {item.date}
+          </div>
+        </motion.div>
+      </TimelineOppositeContent>
+      <TimelineSeparator>
+        <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+        <TimelineDot color="primary">
+          {index === 0 ? <DesignServicesIcon /> : index === 1 ? <AppSettingsAltIcon /> : index === 2 ? <IntegrationInstructionsIcon /> : index === 3 ? <VideocamIcon /> : index === 4 ? <EmojiEventsIcon /> : index === 5 ? <ThumbUpIcon /> : index === 6 ? <CoPresentIcon /> : index === 7 ? <WorkspacePremiumIcon /> : <AssessmentIcon />}
+        </TimelineDot>
+        <TimelineConnector sx={{ bgcolor: 'primary.main' }} />
+      </TimelineSeparator>
+      <TimelineContent sx={{ py: '12px', px: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: alignItemsStyle }}>
+        <div style={{ maxWidth: '80%', wordWrap: 'break-word' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={controls}
+            transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
+          >
+            <Typography align="justify">{item.content}</Typography>
+          </motion.div>
+        </div>
+      </TimelineContent>
+    </TimelineItem>
+  );
+};
 
 export default ExperienceTimeline;

@@ -130,8 +130,10 @@ const AboutMe = () => {
           animate={imageControls}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <img
+          <Image 
             src="/images/aboutme.JPG"
+            width={500}
+            height={500}
             style={{
               width: "100%",
               height: "auto",

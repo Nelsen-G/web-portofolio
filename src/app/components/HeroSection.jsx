@@ -30,7 +30,7 @@ const HeroSection = () => {
 
 
                                 <span className="text-white mb-3 text-3xl sm:text-4xl lg:text-4xl ">
-                                    <p>I'm a</p>
+                                    <p>I&apos;m a</p>
                                 </span>
                             </span>
                         </span>
