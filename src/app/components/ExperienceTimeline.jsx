@@ -21,6 +21,7 @@ import CoPresentIcon from '@mui/icons-material/CoPresent';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import Typography from '@mui/material/Typography';
+import Image from "next/image";
 
 const ExperienceTimeline = () => {
   const [tag, setTag] = useState("All");
@@ -63,21 +64,21 @@ const ExperienceTimeline = () => {
     },
     {
       imageSrc: "/images/PhysicsFinal.jpg",
-      title: "Physics Final Assignment Distinction Award",
+      title: "Physics Distinction Award",
       subtitle: "Bukit Sion High School",
       date: "June 2021",
       content: "Recognized for Best Paper Presentation in Physics."
     },
     {
       imageSrc: "/images/PsychoFinal.jpg",
-      title: "Psychology Final Assignment Distinction Award",
+      title: "Psychology Distinction Award",
       subtitle: "Bukit Sion High School",
       date: "June 2021",
       content: "Secured the Top Score in Psychology."
     },
     {
       imageSrc: "/images/ChemistryFinal.jpg",
-      title: "Chemistry Final Assignment Distinction Award",
+      title: "Chemistry Distinction Award",
       subtitle: "Bukit Sion High School",
       date: "June 2021",
       content: "Achieved Chemistry Best Final Paper Report."
@@ -144,13 +145,30 @@ const TimelineItemComponent = ({ item, index }) => {
           animate={controls}
           transition={{ duration: 0.5, delay: index * 0.1 + 0.1 }}
         >
-          <div style={{ width: '400px', height: '300px', borderRadius: '10px', overflow: 'hidden', marginBottom: '14px' }}>
+          {/* <div style={{ width: '400px', height: '300px', borderRadius: '10px', overflow: 'hidden', marginBottom: '14px' }}>
             <img
               src={item.imageSrc}
               alt="Winner Image"
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
+            <Image
+              src={item.imageSrc}
+              alt="Winner Image"
+              width={400} // Set the desired width
+              height={300} // Set the desired height
+              layout="responsive" // Use "responsive" for responsive images
+              objectFit="cover" // Set the objectFit property if needed
+            />
+          </div> */}
+          <div style={{ width: '400px', height: '300px', borderRadius: '10px', overflow: 'hidden', marginBottom: '14px', position: 'relative' }}>
+            <Image
+              src={item.imageSrc}
+              alt="Winner Image"
+              layout="fill" 
+              objectFit="cover" 
+            />
           </div>
+
           <div>
             <Typography variant="h6" component="span" style={{ fontWeight: 'bold' }}>
               {item.title}
